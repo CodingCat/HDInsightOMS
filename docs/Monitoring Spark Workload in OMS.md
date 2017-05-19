@@ -24,6 +24,11 @@
 5. `cat .ssh/id_rsa.pub | ssh username@ip_address 'cat >> .ssh/authorized_keys'`
 6. test if passwordless ssh works with `ssh username@ip_address`
 
+## Make Your Cluster report metrics in a timely manner
+1. Go to the Ambari to update Spark metrics setup via https://cluster_name.azurehdinsight.net/#/main/services/SPARK2/configs
+2. Click `Advanced spark2-metrics-properties`
+3. replace `*.sink.slf4j.period=60` with `*.sink.slf4j.period=1`
+
 ## Time to Install Spark Monitoring Scripts of OMS
 
 1. SSH to your headnode
@@ -31,3 +36,16 @@
 3. open start scripts: `cd HDInsightOMS; vi scripts/start-all.sh`
 4. replace the workspace ID value in the original script (on [line 6](https://github.com/CodingCat/HDInsightOMS/blob/master/scripts/start-all.sh#L6)) 
 5. run the scripts `scripts/start-all.sh ssh_user_name_of_your_cluster`
+
+##Userful Queries to Monitoring
+
+###General Spark Applications
+
+1. Query the overall memory usage: `(TimeGenerated>NOW-12hour) Type = log_sparkappsdriver_metrics_CL jvm "total.used" | measure avg(Value_d) by ClusterName_s interval 1minute`
+2. Query the number of tasks running in Executors: `(TimeGenerated>NOW-12hour) Type = log_sparkappsdriver_metrics_CL "threadpool.activeTasks" |measure sum(Value_d) by ClusterName_s interval 1minute`
+3. Query the processing latency of Spark Streaming Jobs:`Type=log_sparkappsdriver_metrics_CL Source_s="com.microsoft.spark.streaming.examples.directdstream.WindowingWordCount.StreamingMetrics" "streaming.lastCompletedBatch_processingDelay" | measure avg(Value_d) by Source_s interval 1minute` (you have to replace 'com.microsoft.spark.streaming.examples.directdstream.WindowingWordCount' with your applicaton name, or the value you defined with `spark.metrics.namespace`
+
+4. For other streaming metrics, the following two are the most important ones to get more insights about your streaming applications:
+
+* streaming.lastReceivedBatch_records: the size of the micro batches per number of records
+* streaming.waitingBatches: the number of queued up batches
