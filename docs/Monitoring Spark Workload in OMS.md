@@ -37,7 +37,7 @@
 4. replace the workspace ID value in the original script (on [line 6](https://github.com/CodingCat/HDInsightOMS/blob/master/scripts/start-all.sh#L6)) 
 5. run the scripts `scripts/start-all.sh ssh_user_name_of_your_cluster`
 
-##Userful Queries to Monitoring
+## Userful Queries to Monitoring
 
 
 1. Query the overall memory usage: `(TimeGenerated>NOW-12hour) Type = log_sparkappsdriver_metrics_CL jvm "total.used" | measure avg(Value_d) by ClusterName_s interval 1minute`
