@@ -39,7 +39,6 @@
 
 ##Userful Queries to Monitoring
 
-###General Spark Applications
 
 1. Query the overall memory usage: `(TimeGenerated>NOW-12hour) Type = log_sparkappsdriver_metrics_CL jvm "total.used" | measure avg(Value_d) by ClusterName_s interval 1minute`
 2. Query the number of tasks running in Executors: `(TimeGenerated>NOW-12hour) Type = log_sparkappsdriver_metrics_CL "threadpool.activeTasks" |measure sum(Value_d) by ClusterName_s interval 1minute`
@@ -49,3 +48,5 @@
 
 * streaming.lastReceivedBatch_records: the size of the micro batches per number of records
 * streaming.waitingBatches: the number of queued up batches
+
+5. you can also import spark_workload.omsview in docs directory to start play with OMS
