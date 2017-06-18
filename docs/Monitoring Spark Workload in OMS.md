@@ -23,7 +23,6 @@
 4. `ssh your username@ip_address mkdir -p .ssh`
 5. `cat .ssh/id_rsa.pub | ssh username@ip_address 'cat >> .ssh/authorized_keys'`
 6. test if passwordless ssh works with `ssh username@ip_address`
-7. save IP addresses of all your headnode in a file named "headnodes", and IP addresses of all your workernodes in a file named "workernodes"
 
 ## Make Your Cluster report metrics in a timely manner
 1. Go to the Ambari to update Spark metrics setup via https://cluster_name.azurehdinsight.net/#/main/services/SPARK2/configs
@@ -35,8 +34,9 @@
 1. SSH to your headnode
 2. git clone the scripts with `git clone https://github.com/CodingCat/HDInsightOMS.git`
 3. open start scripts: `cd HDInsightOMS; vi scripts/start-all.sh`
-4. replace the workspace ID value in the original script (on [line 6](https://github.com/CodingCat/HDInsightOMS/blob/master/scripts/start-all.sh#L6)) 
-5. run the scripts `scripts/start-all.sh ssh_user_name_of_your_cluster`
+4. replace the workspace ID value in the original script (on [line 6](https://github.com/CodingCat/HDInsightOMS/blob/master/scripts/start-all.sh#L6))
+5. save IP addresses of all your headnode in a file named "headnodes", and IP addresses of all your workernodes in a file named "workernodes"
+6. run the scripts `scripts/start-all.sh ssh_user_name_of_your_cluster`
 
 ## Userful Queries to Monitoring
 
