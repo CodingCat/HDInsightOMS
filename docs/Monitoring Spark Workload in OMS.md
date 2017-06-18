@@ -23,6 +23,7 @@
 4. `ssh your username@ip_address mkdir -p .ssh`
 5. `cat .ssh/id_rsa.pub | ssh username@ip_address 'cat >> .ssh/authorized_keys'`
 6. test if passwordless ssh works with `ssh username@ip_address`
+7. save IP addresses of all your headnode in a file named "headnodes", and IP addresses of all your workernodes in a file named "workernodes"
 
 ## Make Your Cluster report metrics in a timely manner
 1. Go to the Ambari to update Spark metrics setup via https://cluster_name.azurehdinsight.net/#/main/services/SPARK2/configs
